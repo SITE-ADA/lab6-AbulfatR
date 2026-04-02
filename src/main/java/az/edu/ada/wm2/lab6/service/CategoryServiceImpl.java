@@ -49,6 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public CategoryResponseDto addProduct(UUID categoryId, UUID productId) {
         Category category = categoryRepository.findById(categoryId)
@@ -56,18 +57,18 @@ public class CategoryServiceImpl implements CategoryService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Initialize list if it's null to avoid NullPointerException
+        // Make sure neither list is null
         if (category.getProducts() == null) {
             category.setProducts(new ArrayList<>());
         }
+        if (product.getCategories() == null) {
+            product.setCategories(new ArrayList<>());
+        }
 
-        // Update both sides of the relationship
         category.getProducts().add(product);
         product.getCategories().add(category);
 
-        // Save the product (owning side of the ManyToMany) to update the join table
         productRepository.save(product);
-
         return CategoryMapper.toResponseDto(category);
     }
 

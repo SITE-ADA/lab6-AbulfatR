@@ -6,12 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
-
+@Builder
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,5 +27,6 @@ public class Category {
 
     // The 'mappedBy' attribute makes Product the owner of the relationship
     @ManyToMany(mappedBy = "categories")
-    private List<Product> products;
+    @Builder.Default
+    private List<Product> products = new java.util.ArrayList<>();
 }

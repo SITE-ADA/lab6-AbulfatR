@@ -30,7 +30,8 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categories;
+    @Builder.Default
+    private List<Category> categories = new java.util.ArrayList<>();
 
     // Getters and Setters
     public UUID getId() {

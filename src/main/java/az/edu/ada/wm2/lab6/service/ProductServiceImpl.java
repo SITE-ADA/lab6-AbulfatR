@@ -58,17 +58,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsExpiringBefore(LocalDate date) {
-        return productRepository.findAll().stream()
-                .filter(product -> product.getExpirationDate() != null && 
-                        product.getExpirationDate().isBefore(date))
-                .collect(Collectors.toList());
+        // The database does all the heavy lifting now
+        return productRepository.findByExpirationDateBefore(date);
     }
 
     @Override
     public List<Product> getProductsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
-        return productRepository.findAll().stream()
-                .filter(product -> product.getPrice().compareTo(minPrice) >= 0 && 
-                        product.getPrice().compareTo(maxPrice) <= 0)
-                .collect(Collectors.toList());
+        // Only the matching products are sent to the application memory
+        return productRepository.findByPriceBetween(minPrice, maxPrice);
     }
 }

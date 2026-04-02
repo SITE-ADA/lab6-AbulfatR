@@ -72,7 +72,13 @@ public class Product {
     public LocalDate getExpirationDate() {
         return expirationDate;
     }
+    public List<Category> getCategories() {
+        return categories;
+    }
 
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }

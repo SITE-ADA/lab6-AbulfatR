@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-public interface ProductService {
+public interface    ProductService {
     Product createProduct(Product product);
     Product getProductById(UUID id);
     List<Product> getAllProducts();

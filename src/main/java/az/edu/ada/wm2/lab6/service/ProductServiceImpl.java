@@ -36,7 +36,8 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseDto createProduct(ProductRequestDto dto) {
         // Use mapper to convert DTO to Entity
         if (dto.getPrice() == null || dto.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RuntimeException("Price must be greater than zero");
+            // Change this line specifically:
+            throw new IllegalArgumentException("Price must be greater than zero");
         }
         Product product = productMapper.toEntity(dto);
 
@@ -67,7 +68,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto updateProduct(UUID id, ProductRequestDto dto) {
         if (dto.getPrice() == null || dto.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new RuntimeException("Price must be greater than zero");
+            // Change this line specifically:
+            throw new IllegalArgumentException("Price must be greater than zero");
         }
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));

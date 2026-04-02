@@ -1,32 +1,37 @@
 package az.edu.ada.wm2.lab6.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String productName;
     private BigDecimal price;
     private LocalDate expirationDate;
 
-    // Constructors
-    public Product() {
-    }
-
-    public Product(String productName, BigDecimal price, LocalDate expirationDate) {
-        this.id = UUID.randomUUID();
-        this.productName = productName;
-        this.price = price;
-        this.expirationDate = expirationDate;
-    }
-
-    public Product(UUID id, String productName, BigDecimal price, LocalDate expirationDate) {
-        this.id = id;
-        this.productName = productName;
-        this.price = price;
-        this.expirationDate = expirationDate;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @Builder.Default
+    private List<Category> categories = new java.util.ArrayList<>();
 
     // Getters and Setters
     public UUID getId() {
@@ -59,6 +64,14 @@ public class Product {
 
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

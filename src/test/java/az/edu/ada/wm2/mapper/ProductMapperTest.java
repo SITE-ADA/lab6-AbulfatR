@@ -30,7 +30,7 @@ class ProductMapperTest {
         ProductResponseDto dto = productMapper.toResponseDto(product);
 
         assertEquals
-                ("Food", dto.getCategoryNames().get(0));
+                ("Food", dto.getCategoryNames().getFirst());
     }
 
     //OPTIONAL

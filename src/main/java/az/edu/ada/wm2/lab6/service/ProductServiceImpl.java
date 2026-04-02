@@ -89,7 +89,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(UUID id) {
-
         productRepository.deleteById(id);
     }
 

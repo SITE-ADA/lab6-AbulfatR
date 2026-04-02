@@ -89,7 +89,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(UUID id) {
-        productRepository.deleteById(id);
+        // 1. Find the product first
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // 2. Delete using the product object, NOT the id
+        productRepository.delete(product);
     }
 
     @Override

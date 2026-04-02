@@ -1,47 +1,34 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.0.2'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'az.edu.ada.wm2'
 version = '0.0.1-SNAPSHOT'
-description = 'Demo project for Spring Boot'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(25)
-	}
+	sourceCompatibility = '17'
 }
 
 repositories {
 	mavenCentral()
 }
 
-
 dependencies {
-	dependencies {
-		implementation 'org.springframework.boot:spring-boot-starter-web'
-		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2'
 
-		// Database
-		runtimeOnly 'com.h2database:h2'
-		implementation 'org.springframework.boot:spring-boot-h2console'
-		// Lombok
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 
-		// MapStruct
-		implementation 'org.mapstruct:mapstruct:1.6.3'
-		annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
-		annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
-		// Testing (This is the line that fixes the red "orm" text!)
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	}
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-
 
 tasks.named('test') {
 	useJUnitPlatform()
